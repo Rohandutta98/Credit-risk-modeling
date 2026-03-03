@@ -88,3 +88,8 @@ The objective of this project is to predict whether a loan applicant is likely t
 git clone https://github.com/YOUR_USERNAME/credit-risk-modeling.git
 
 cd credit-risk-modeling
+
+## 🌍 Live Application
+
+🔗 https://credit-risk-modeling-9dmkfyhkyxeoixwhpxyrrz.streamlit.app/
+
