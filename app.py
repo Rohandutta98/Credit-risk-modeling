@@ -85,16 +85,25 @@ if st.sidebar.button("Predict Risk"):
     # SHAP Explainability
     # -------------------------------
 
-    st.subheader("🔍 Feature Contribution (SHAP)")
+   # ================= SHAP Explanation =================
+try:
+    explainer = shap.TreeExplainer(
+        model,
+        feature_perturbation="tree_path_dependent"
+    )
 
-    explainer = shap.TreeExplainer(model)
-    shap_values = explainer(input_data)
+    shap_values = explainer.shap_values(input_data)
 
     shap_df = pd.DataFrame({
         "Feature": input_data.columns,
-        "Impact on Risk": shap_values.values[0]
-    }).sort_values(by="Impact on Risk", key=abs, ascending=False)
+        "Impact": shap_values[0]
+    }).sort_values(by="Impact", key=abs, ascending=False)
 
+    st.subheader("🔍 Feature Contribution (SHAP)")
     st.dataframe(shap_df)
+
+except Exception as e:
+    st.warning("SHAP explanation temporarily unavailable in cloud environment.")
+
 
     st.info("Positive values increase default risk. Negative values reduce risk.")
